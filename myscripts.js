@@ -108,8 +108,11 @@ const ticTacToe = (function () {
     const player = function (inputName, inputToken) {
         const name = inputName;
         const token = inputToken;
+        const setName = function (newName) {
+            name = newName;
+        }
         
-        return {name, token};
+        return {name, token, setName};
     }
 
     //Initializes two players//
