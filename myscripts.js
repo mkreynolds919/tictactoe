@@ -33,6 +33,38 @@ const ticTacToe = (function () {
                 console.log(currPlayer.name + ", it's your turn now!");
             }
         }
+
+        //Is called after every placement, compares current gameboard status with potential winning three-in-a-rows//
+        const checkWin = function (gmBrd, tkn) {
+
+                //Used for checkWin, simply compares to same-size arrays to see if they are identical//
+            const compareResults = function (arr1, arr2) {
+                for (var i = 0; i < arr1.length; i++) {
+                    if (arr1[i] != arr2[i]) return false;
+                }
+                return true;
+            }
+
+            let win = false;
+            if (compareResults([gmBrd[0], gmBrd[1], gmBrd[2]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[3], gmBrd[4], gmBrd[5]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[6], gmBrd[7], gmBrd[8]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[0], gmBrd[3], gmBrd[6]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[1], gmBrd[4], gmBrd[7]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[2], gmBrd[5], gmBrd[8]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[0], gmBrd[4], gmBrd[8]], [tkn, tkn, tkn])) win = true;
+            if (compareResults([gmBrd[2], gmBrd[4], gmBrd[6]], [tkn, tkn, tkn])) win = true;
+            return win;
+        }
+
+        //Checks game for potential tie after checkWin runs//
+        const checkTie = function (gmBrd) {
+            for (var i = 0; i < gmBrd.length; i++) {
+                if (gmBrd[i] == 0) return false;
+            }
+            return true;
+        }
+
         return {getBoard, placeToken};
     })();
 
@@ -54,38 +86,6 @@ const ticTacToe = (function () {
 
         });
     })();
-
-    //Used for checkWin, simply compares to same-size arrays to see if they are identical//
-    const compareResults = function (arr1, arr2) {
-        for (var i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) return false;
-        }
-        return true;
-    }
-
-    //Is called after every placement, compares current gameboard status with potential winning three-in-a-rows//
-    const checkWin = function (gmBrd, tkn) {
-        let win = false;
-        if (compareResults([gmBrd[0], gmBrd[1], gmBrd[2]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[3], gmBrd[4], gmBrd[5]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[6], gmBrd[7], gmBrd[8]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[0], gmBrd[3], gmBrd[6]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[1], gmBrd[4], gmBrd[7]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[2], gmBrd[5], gmBrd[8]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[0], gmBrd[4], gmBrd[8]], [tkn, tkn, tkn])) win = true;
-        if (compareResults([gmBrd[2], gmBrd[4], gmBrd[6]], [tkn, tkn, tkn])) win = true;
-        return win;
-    }
-
-    //Checks game for potential tie after checkWin runs//
-    const checkTie = function (gmBrd) {
-        for (var i = 0; i < gmBrd.length; i++) {
-            if (gmBrd[i] == 0) return false;
-        }
-        return true;
-    }
-
-    
 
     //Factory function for player, simply stores name and chosen token//
     const player = function (inputName, inputToken) {
