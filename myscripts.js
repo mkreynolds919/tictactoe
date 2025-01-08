@@ -8,6 +8,19 @@ const ticTacToe = (function () {
         return {getBoard};
     })();
 
+    const displayController = (function () {
+        const gameBoardSpaceButtons = document.querySelectorAll("button.gameBoardSpace");
+        gameBoardSpaceButtons.forEach(element => {
+            element.addEventListener("click", () => {
+                if (element.parentElement.textContent != currPlayer.token) {
+                    element.parentElement.textContent = currPlayer.token;
+                    placeToken(element.id);
+                }
+            });
+
+        });
+    })();
+
     //Used for checkWin, simply compares to same-size arrays to see if they are identical//
     const compareResults = function (arr1, arr2) {
         for (var i = 0; i < arr1.length; i++) {
@@ -71,7 +84,7 @@ const ticTacToe = (function () {
     var currPlayer = player1;
 
     //returns these methods for mutabilitiy and access//
-    return {gameBoard, placeToken, player1, player2, currPlayer};
+    return {gameBoard, placeToken, player1, player2, currPlayer, displayController};
 })();
 
 
