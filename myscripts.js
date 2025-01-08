@@ -1,6 +1,7 @@
 
 //Initiates the ticTacToe class//
 const ticTacToe = (function () {
+
     //Initiates gameBoard, uses IIFE//
     const gameBoard = (function () {
         var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -49,6 +50,14 @@ const ticTacToe = (function () {
         return win;
     }
 
+    //Checks game for potential tie after checkWin runs//
+    const checkTie = function (gmBrd) {
+        for (var i = 0; i < gmBrd.length; i++) {
+            if (gmBrd[i] == 0) return false;
+        }
+        return true;
+    }
+
     //takes the current token of whomever's turn it is, places it at index//
     const placeToken = function (index) {
         //mutates the gameboard array by adding the currPlayer's token at index//
@@ -60,6 +69,8 @@ const ticTacToe = (function () {
         //checks win conditions with method, gives output message if they won//
         if (checkWin(gameBoard.getBoard(), currPlayer.token)) {
             console.log(currPlayer.name + " has won the game!");
+        } else if (checkTie(gameBoard.getBoard())) {
+            console.log("It's a tie!");
         } else {
         
             //Assigns currPlayer to the opposite of whomever just went//
