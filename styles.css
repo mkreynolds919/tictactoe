@@ -1,9 +1,21 @@
-
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
 
 .header {
     margin: auto;
     text-align: center;
 }
+
+.setup-buttons-container {
+    display: flex;
+    gap: 5px;
+    margin: auto;
+}
+
 .gameBoardContainer {
     margin: auto;
     aspect-ratio: 1 / 1;
@@ -12,6 +24,8 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
+
+
 
 div.gameBoardSpace {
     outline: 2px solid black;

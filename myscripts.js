@@ -103,7 +103,7 @@ const ticTacToe = (function () {
     var currPlayer = player1;
 
     //returns these methods for mutabilitiy and access//
-    return {gameBoard, player1, player2, currPlayer, displayController};
+    return {gameBoard, player1, player2, currPlayer};
 })();
 
 
