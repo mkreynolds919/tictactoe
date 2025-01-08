@@ -6,7 +6,34 @@ const ticTacToe = (function () {
     const gameBoard = (function () {
         var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         const getBoard = () => board;
-        return {getBoard};
+
+            //takes the current token of whomever's turn it is, places it at index//
+        const placeToken = function (index) {
+            //mutates the gameboard array by adding the currPlayer's token at index//
+            board.splice(index-1, 1, currPlayer.token);
+
+            //Outputs current state of the gameboard after the placement//
+            console.log(board);
+
+            //checks win conditions with method, gives output message if they won//
+            if (checkWin(board, currPlayer.token)) {
+                console.log(currPlayer.name + " has won the game!");
+            } else if (checkTie(board)) {
+                console.log("It's a tie!");
+            } else {
+        
+                //Assigns currPlayer to the opposite of whomever just went//
+                if (currPlayer.name == player1.name) {
+                    currPlayer = player2;
+                } else {
+                    currPlayer = player1;
+                }
+
+                //Outputs message letting user know who's turn it is//
+                console.log(currPlayer.name + ", it's your turn now!");
+            }
+        }
+        return {getBoard, placeToken};
     })();
 
     //Initiates displayController, uses IIFE//
@@ -20,7 +47,7 @@ const ticTacToe = (function () {
             element.addEventListener("click", () => {
                 if (element.textContent != currPlayer.token) {
                     element.textContent = currPlayer.token;
-                    placeToken(element.id);
+                    gameBoard.placeToken(element.id);
                     element.disabled = true;
                 }
             });
@@ -58,32 +85,7 @@ const ticTacToe = (function () {
         return true;
     }
 
-    //takes the current token of whomever's turn it is, places it at index//
-    const placeToken = function (index) {
-        //mutates the gameboard array by adding the currPlayer's token at index//
-        gameBoard.getBoard().splice(index-1, 1, currPlayer.token);
-
-        //Outputs current state of the gameboard after the placement//
-        console.log(gameBoard.getBoard());
-
-        //checks win conditions with method, gives output message if they won//
-        if (checkWin(gameBoard.getBoard(), currPlayer.token)) {
-            console.log(currPlayer.name + " has won the game!");
-        } else if (checkTie(gameBoard.getBoard())) {
-            console.log("It's a tie!");
-        } else {
-        
-            //Assigns currPlayer to the opposite of whomever just went//
-            if (currPlayer.name == player1.name) {
-                currPlayer = player2;
-            } else {
-                currPlayer = player1;
-            }
-
-            //Outputs message letting user know who's turn it is//
-            console.log(currPlayer.name + ", it's your turn now!");
-        }
-    }
+    
 
     //Factory function for player, simply stores name and chosen token//
     const player = function (inputName, inputToken) {
@@ -101,7 +103,7 @@ const ticTacToe = (function () {
     var currPlayer = player1;
 
     //returns these methods for mutabilitiy and access//
-    return {gameBoard, placeToken, player1, player2, currPlayer, displayController};
+    return {gameBoard, player1, player2, currPlayer, displayController};
 })();
 
 
