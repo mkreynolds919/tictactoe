@@ -11,14 +11,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    outline: 2px solid black;
 }
 
 div.gameBoardSpace {
     outline: 2px solid black;
+    padding: 0;
 }
 
 button.gameBoardSpace {
     width: 100%;
     height: 100%;
+    font-size: 26px;
+    background-color: white;
+}
+
+button.gameBoardSpace:disabled {
+    color: black;
+    border: 2px solid black;
 }

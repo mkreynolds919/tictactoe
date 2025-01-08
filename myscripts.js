@@ -8,13 +8,19 @@ const ticTacToe = (function () {
         return {getBoard};
     })();
 
+    //Initiates displayController, uses IIFE//
     const displayController = (function () {
+
+        //Identifies buttons in each gameboard div//
         const gameBoardSpaceButtons = document.querySelectorAll("button.gameBoardSpace");
+
+        //Adds functionality to each button that runs the placeToken function, then eliminates button//
         gameBoardSpaceButtons.forEach(element => {
             element.addEventListener("click", () => {
-                if (element.parentElement.textContent != currPlayer.token) {
-                    element.parentElement.textContent = currPlayer.token;
+                if (element.textContent != currPlayer.token) {
+                    element.textContent = currPlayer.token;
                     placeToken(element.id);
+                    element.disabled = true;
                 }
             });
 
