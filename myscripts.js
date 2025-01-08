@@ -85,6 +85,23 @@ const ticTacToe = (function () {
             });
 
         });
+
+        //Identifies edit-names button//
+        const editNames = document.querySelector(".edit-names");
+
+        //Replaces name divs with inputs for name editing//
+        editNames.addEventListener("click", () => {
+            const player1NameInput = document.createElement("input");
+            player1NameInput.type = "text";
+            const player2NameInput = document.createElement("input");
+            player2NameInput.type = "text";
+
+            const player1Name = document.querySelector(".player1-name");
+            const player2Name = document.querySelector(".player2-name");
+
+            player1Name.replaceWith(player1NameInput);
+            player2Name.replaceWith(player2NameInput);
+        });
     })();
 
     //Factory function for player, simply stores name and chosen token//
