@@ -43,3 +43,15 @@ button.gameBoardSpace:disabled {
     color: black;
     border: 2px solid black;
 }
+
+.score-container {
+    width: 200px;
+    margin: auto;
+}
+
+.score-container div {
+    font-size: 25px;
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+}
