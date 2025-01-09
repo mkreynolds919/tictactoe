@@ -30,7 +30,13 @@ const ticTacToe = (function () {
             //checks win conditions with method, gives output message if they won//
             if (checkWin(board, currPlayer.token)) {
                 console.log(currPlayer.name + " has won the game!");
-                currPlayer.score++;
+                if (currPlayer.name == player1.name) {
+                    player1.score++;
+                    player1Score.textContent = player1.score;
+                } else {
+                    player2.score++;
+                    player2Score.textContent = player2.score;
+                }
             } else if (checkTie(board)) {
                 console.log("It's a tie!");
             } else {
@@ -131,6 +137,8 @@ const ticTacToe = (function () {
 
             player1NameInput.replaceWith(player1Name);
             player2NameInput.replaceWith(player2Name);
+
+            startGame.replaceWith(resetGame);
             
         });
 
@@ -139,11 +147,14 @@ const ticTacToe = (function () {
         
         resetGame.textContent = "Reset Game";
         resetGame.addEventListener("click", () => {
-            gameBoard.getBoard() = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            gameBoard.getBoard = [0, 0, 0, 0, 0, 0, 0, 0, 0];
             player1Score.textContent = 0;
             player2Score.textContent = 0;
             player1.score = 0;
             player2.score = 0;
+            gameBoardSpaceButtons.forEach(element => {
+                element.textContent = "";
+            })
         });
     })();
 
