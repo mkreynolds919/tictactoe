@@ -2,6 +2,18 @@
 //Initiates the ticTacToe class//
 const ticTacToe = (function () {
 
+    //Identify and create different elements//
+        const gameBoardSpaceButtons = document.querySelectorAll("button.gameBoardSpace");
+        const player1NameInput = document.createElement("input");
+        const player2NameInput = document.createElement("input");
+        const player1Name = document.querySelector(".player1-name");
+        const player2Name = document.querySelector(".player2-name");
+        const editNames = document.querySelector(".edit-names");
+        const startGame = document.querySelector(".start-game");
+        const player1Score = document.querySelector(".player1-score");
+        const player2Score = document.querySelector(".player2-score");
+        const resetGame = document.createElement("button");
+
     //Initiates gameBoard, uses IIFE//
     const gameBoard = (function () {
         var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -18,6 +30,7 @@ const ticTacToe = (function () {
             //checks win conditions with method, gives output message if they won//
             if (checkWin(board, currPlayer.token)) {
                 console.log(currPlayer.name + " has won the game!");
+                currPlayer.score++;
             } else if (checkTie(board)) {
                 console.log("It's a tie!");
             } else {
@@ -72,7 +85,7 @@ const ticTacToe = (function () {
     const displayController = (function () {
 
         //Identifies buttons in each gameboard div//
-        const gameBoardSpaceButtons = document.querySelectorAll("button.gameBoardSpace");
+        
 
         //Adds functionality to each button that runs the placeToken function, then eliminates button//
         gameBoardSpaceButtons.forEach(element => {
@@ -87,19 +100,18 @@ const ticTacToe = (function () {
         });
 
         //Create inputs for custom names, hidden for now//
-        const player1NameInput = document.createElement("input");
+        
         player1NameInput.type = "text";
         player1NameInput.value = "Player 1";
-        const player2NameInput = document.createElement("input");
+        
         player2NameInput.type = "text";
         player2NameInput.value = "Player 2";
 
         //Identify current placeholder names//
-        const player1Name = document.querySelector(".player1-name");
-        const player2Name = document.querySelector(".player2-name");
+        
 
         //Identifies edit-names button//
-        const editNames = document.querySelector(".edit-names");
+        
 
         //Replaces name divs with inputs for name editing//
         editNames.addEventListener("click", () => {
@@ -108,8 +120,7 @@ const ticTacToe = (function () {
         });
 
         //Identifies start-game button//
-        const startGame = document.querySelector(".start-game");
-
+        
         //Starts the game by assigning playerNames to inputs//
         startGame.addEventListener("click", () => {
             player1.name = player1NameInput.value;
@@ -122,6 +133,18 @@ const ticTacToe = (function () {
             player2NameInput.replaceWith(player2Name);
             
         });
+
+        
+        //Creates reset-game button//
+        
+        resetGame.textContent = "Reset Game";
+        resetGame.addEventListener("click", () => {
+            gameBoard.getBoard() = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            player1Score.textContent = 0;
+            player2Score.textContent = 0;
+            player1.score = 0;
+            player2.score = 0;
+        });
     })();
 
 
@@ -130,8 +153,9 @@ const ticTacToe = (function () {
     const player = function (inputToken, inputName) {
         const token = inputToken;
         var name = inputName;
+        var score = 0;
         
-        return {name, token};
+        return {name, token, score};
     }
 
     var player1 = player("X", "Player1");
