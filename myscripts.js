@@ -86,44 +86,61 @@ const ticTacToe = (function () {
 
         });
 
+        //Create inputs for custom names, hidden for now//
+        const player1NameInput = document.createElement("input");
+        player1NameInput.type = "text";
+        player1NameInput.value = "Player 1";
+        const player2NameInput = document.createElement("input");
+        player2NameInput.type = "text";
+        player2NameInput.value = "Player 2";
+
+        //Identify current placeholder names//
+        const player1Name = document.querySelector(".player1-name");
+        const player2Name = document.querySelector(".player2-name");
+
         //Identifies edit-names button//
         const editNames = document.querySelector(".edit-names");
 
         //Replaces name divs with inputs for name editing//
         editNames.addEventListener("click", () => {
-            const player1NameInput = document.createElement("input");
-            player1NameInput.type = "text";
-            const player2NameInput = document.createElement("input");
-            player2NameInput.type = "text";
-
-            const player1Name = document.querySelector(".player1-name");
-            const player2Name = document.querySelector(".player2-name");
-
             player1Name.replaceWith(player1NameInput);
             player2Name.replaceWith(player2NameInput);
         });
+
+        //Identifies start-game button//
+        const startGame = document.querySelector(".start-game");
+
+        //Starts the game by assigning playerNames to inputs//
+        startGame.addEventListener("click", () => {
+            player1.name = player1NameInput.value;
+            player2.name = player2NameInput.value;
+
+            player1Name.textContent = player1NameInput.value + ":";
+            player2Name.textContent = player2NameInput.value + ":";
+
+            player1NameInput.replaceWith(player1Name);
+            player2NameInput.replaceWith(player2Name);
+            
+        });
     })();
 
+
+
     //Factory function for player, simply stores name and chosen token//
-    const player = function (inputName, inputToken) {
-        const name = inputName;
+    const player = function (inputToken, inputName) {
         const token = inputToken;
-        const setName = function (newName) {
-            name = newName;
-        }
+        var name = inputName;
         
-        return {name, token, setName};
+        return {name, token};
     }
 
-    //Initializes two players//
-    const player1 = player("Player1", "X");
-    const player2 = player("Player2", "O");
+    var player1 = player("X", "Player1");
+    var player2 = player("O", "Player2");
 
-    //Initializes first player's turn//
     var currPlayer = player1;
 
     //returns these methods for mutabilitiy and access//
-    return {gameBoard, player1, player2, currPlayer};
+    return {gameBoard};
 })();
 
 
