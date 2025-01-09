@@ -13,23 +13,27 @@ const ticTacToe = (function () {
         const player1Score = document.querySelector(".player1-score");
         const player2Score = document.querySelector(".player2-score");
         const resetGame = document.createElement("button");
+        const gameDisplay = document.querySelector(".game-display");
+        const nextRound = document.createElement("button");
+
 
     //Initiates gameBoard, uses IIFE//
     const gameBoard = (function () {
         var board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         const getBoard = () => board;
 
+        const resetBoard = function () {
+            board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        }
+
             //takes the current token of whomever's turn it is, places it at index//
         const placeToken = function (index) {
             //mutates the gameboard array by adding the currPlayer's token at index//
             board.splice(index-1, 1, currPlayer.token);
 
-            //Outputs current state of the gameboard after the placement//
-            console.log(board);
-
             //checks win conditions with method, gives output message if they won//
             if (checkWin(board, currPlayer.token)) {
-                console.log(currPlayer.name + " has won the game!");
+                gameDisplay.textContent = currPlayer.name + " has won the game!";
                 if (currPlayer.name == player1.name) {
                     player1.score++;
                     player1Score.textContent = player1.score;
@@ -37,8 +41,10 @@ const ticTacToe = (function () {
                     player2.score++;
                     player2Score.textContent = player2.score;
                 }
+                document.body.appendChild(nextRound);
             } else if (checkTie(board)) {
-                console.log("It's a tie!");
+                gameDisplay.textContent = "It's a tie!";
+                document.body.appendChild(nextRound);
             } else {
         
                 //Assigns currPlayer to the opposite of whomever just went//
@@ -49,7 +55,7 @@ const ticTacToe = (function () {
                 }
 
                 //Outputs message letting user know who's turn it is//
-                console.log(currPlayer.name + ", it's your turn now!");
+                gameDisplay.textContent = currPlayer.name + ", it's your turn now!";
             }
         }
 
@@ -84,7 +90,7 @@ const ticTacToe = (function () {
             return true;
         }
 
-        return {getBoard, placeToken};
+        return {getBoard, board, placeToken, resetBoard};
     })();
 
     //Initiates displayController, uses IIFE//
@@ -147,14 +153,31 @@ const ticTacToe = (function () {
         
         resetGame.textContent = "Reset Game";
         resetGame.addEventListener("click", () => {
-            gameBoard.getBoard = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            gameBoard.resetBoard();
             player1Score.textContent = 0;
             player2Score.textContent = 0;
             player1.score = 0;
             player2.score = 0;
+            gameDisplay.textContent = "";
             gameBoardSpaceButtons.forEach(element => {
                 element.textContent = "";
-            })
+                element.disabled = false;
+            });
+            currPlayer = player1;
+        });
+
+        nextRound.textContent = "Next Round";
+        nextRound.style.margin = "auto";
+        nextRound.style.width = "100px";
+        nextRound.addEventListener("click", () => {
+            nextRound.remove();
+            gameBoard.resetBoard();
+            gameDisplay.textContent = "";
+            gameBoardSpaceButtons.forEach(element => {
+                element.textContent = "";
+                element.disabled = false;
+            });
+            currPlayer = player1;
         });
     })();
 

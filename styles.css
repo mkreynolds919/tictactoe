@@ -55,3 +55,7 @@ button.gameBoardSpace:disabled {
     margin: 5px;
     justify-content: center;
 }
+
+.game-display {
+    margin: auto;
+}
